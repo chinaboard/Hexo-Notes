@@ -1,0 +1,17 @@
+# Header
+menu:
+  Home: /
+  Archives: /archives
+  About: /2015/01/12/aboutme/
+rss: /atom.xml
+
+menu_icon:
+  Home: fa-home
+  Archives: fa-archive
+  About: fa-user
+
+# Content
+excerpt_link: Read More
+
+# Miscellaneous
+
