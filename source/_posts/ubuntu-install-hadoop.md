@@ -91,7 +91,12 @@ JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
 source /etc/environment
 echo $JAVA_HOME
 ```
-#####2)配置core-site.xml
+#####2)编辑hadoop-env.sh
+将/usr/local/hadoop/etc/hadoop/hadoop-env.sh中找到JAVA_HOME变量，修改为
+```text
+export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
+```
+#####3)配置core-site.xml
 
 在文件/usr/local/hadoop/etc/hadoop/core-site.xml的`<configuration></configuration>`之间增加如下内容
 ```xml
@@ -111,7 +116,7 @@ echo $JAVA_HOME
   <description>Should native hadoop libraries, if present, be used.</description>
 </property>
 ```
-#####3)配置yarn-site.xml
+#####4)配置yarn-site.xml
 在文件/usr/local/hadoop/etc/hadoop/yarn-site.xml的`<configuration></configuration>`之间增加如下内容
 ```xml
 <property>
@@ -123,7 +128,7 @@ echo $JAVA_HOME
     <value>org.apache.hadoop.mapred.ShuffleHandler</value>
 </property>
 ```
-#####4)创建和配置mapred-site.xml
+#####5)创建和配置mapred-site.xml
 将/usr/local/hadoop/etc/hadoop/mapred.xml.template重名为mapred.xml 
 在该文件的`<configuration></configuration>`之间增加如下内容
 ```xml
@@ -132,7 +137,7 @@ echo $JAVA_HOME
     <value>yarn</value>
 </property>
 ```
-#####5)配置hdfs-site.xml
+#####6)配置hdfs-site.xml
 在文件/usr/local/hadoop/etc/hadoop/配置hdfs-site.xml的`<configuration></configuration>`之间增加如下内容
 ```xml
 <property>
