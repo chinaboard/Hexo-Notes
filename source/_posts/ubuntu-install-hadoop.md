@@ -221,7 +221,7 @@ bin/hadoop jar share/hadoop/mapreduce/sources/hadoop-mapreduce-examples-2.6.0-so
 ```
 运行完毕后，查看单词统计结果
 ```bash
-hadoop fs -cat output/*
+bin/hadoop fs -cat output/*
 ```
 结果如下
 ```text
