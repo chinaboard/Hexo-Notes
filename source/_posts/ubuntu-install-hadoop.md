@@ -26,7 +26,7 @@ hadoop  ALL=(ALL:ALL) ALL
 ```
 
 ###二、用新增加的hadoop用户登录Ubuntu系统
-反正最好是用hadoop账号做后续的事情就是的了
+反正是用hadoop账号做后续的事情就是的了
 
 ###三、安装ssh
 如果没装oepnssh的话，先装上
@@ -38,6 +38,12 @@ sudo apt-get install openssh-server
 ssh localhost
 ```
 完事，也可以从别的机器登陆进来
+然后设置公钥并保存
+```bash
+ssh-keygen -t rsa -P ""
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+```
+这一步主要是为了之后开启hadoop的时候不用再输入密码了
 
 ###四、安装JDK
 ```bash
