@@ -73,8 +73,8 @@ sudo chmod 774 /usr/local/hadoop
 ```bash
 update-alternatives --config java
 ```
-我的显示如下
-```text
+我的显示如下 
+```
 There is only one alternative in link group java (providing /usr/bin/java): /usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java
 Nothing to configure.
 ```
@@ -124,8 +124,8 @@ echo $JAVA_HOME
 </property>
 ```
 #####4)创建和配置mapred-site.xml
-将/usr/local/hadoop/etc/hadoop/mapred.xml.template重名为mapred.xml
-在该文件的```<configuration></configuration>```之间增加如下内容
+将/usr/local/hadoop/etc/hadoop/mapred.xml.template重名为mapred.xml 
+在该文件的`<configuration></configuration>`之间增加如下内容
 ```xml
 <property>
     <name>mapreduce.framework.name</name>
@@ -133,7 +133,7 @@ echo $JAVA_HOME
 </property>
 ```
 #####5)配置hdfs-site.xml
-在文件/usr/local/hadoop/etc/hadoop/配置hdfs-site.xml的```<configuration></configuration>```之间增加如下内容
+在文件/usr/local/hadoop/etc/hadoop/配置hdfs-site.xml的`<configuration></configuration>`之间增加如下内容
 ```xml
 <property>
     <name>dfs.replication</name>
@@ -233,8 +233,3 @@ hadoop fs -cat output/*
 2.[二、Ubuntu14.04下安装Hadoop2.4.0 （伪分布模式）](http://www.cnblogs.com/kinglau/p/3796164.html)
 
 3.[Unable to load native-hadoop library for your platform Hadoop本地库与系统版本不一致引起的错误解决方法](http://www.360doc.com/content/14/0724/15/597197_396743445.shtml)
-
-
-
-
-
