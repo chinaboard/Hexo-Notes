@@ -106,58 +106,58 @@ export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
 
 在文件/usr/local/hadoop/etc/hadoop/core-site.xml的`<configuration></configuration>`之间增加如下内容
 ```xml
-<property>
-    <name>fs.default.name</name>
-    <value>hdfs://localhost:9000</value>
-</property>
+    <property>
+        <name>fs.default.name</name>
+        <value>hdfs://localhost:9000</value>
+    </property>
 ```
 有些时候在后面执行hadoop命令的时候，会报
 `Unable to load native-hadoop library for your platform`
 
 这时候加入以下配置节使用本地库
 ```xml
-<property>
-<name>hadoop.native.lib</name>
-  <value>true</value>
-  <description>Should native hadoop libraries, if present, be used.</description>
-</property>
+    <property>
+        <name>hadoop.native.lib</name>
+        <value>true</value>
+        <description>Should native hadoop libraries, if present, be used.</description>
+    </property>
 ```
 #####4)配置yarn-site.xml
 在文件/usr/local/hadoop/etc/hadoop/yarn-site.xml的`<configuration></configuration>`之间增加如下内容
 ```xml
-<property>
-    <name>yarn.nodemanager.aux-services</name>
-    <value>mapreduce_shuffle</value>
-</property>
-<property>
-    <name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name>
-    <value>org.apache.hadoop.mapred.ShuffleHandler</value>
-</property>
+    <property>
+        <name>yarn.nodemanager.aux-services</name>
+        <value>mapreduce_shuffle</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name>
+        <value>org.apache.hadoop.mapred.ShuffleHandler</value>
+    </property>
 ```
 #####5)创建和配置mapred-site.xml
 将/usr/local/hadoop/etc/hadoop/mapred.xml.template重名为mapred.xml 
 在该文件的`<configuration></configuration>`之间增加如下内容
 ```xml
-<property>
-    <name>mapreduce.framework.name</name>
-    <value>yarn</value>
-</property>
+    <property>
+        <name>mapreduce.framework.name</name>
+        <value>yarn</value>
+    </property>
 ```
 #####6)配置hdfs-site.xml
 在文件/usr/local/hadoop/etc/hadoop/配置hdfs-site.xml的`<configuration></configuration>`之间增加如下内容
 ```xml
-<property>
-    <name>dfs.replication</name>
-    <value>1</value>
-</property>
-<property>
-    <name>dfs.namenode.name.dir</name>
-    <value>file:/usr/local/hadoop/hdfs/name</value>
-</property>
-<property>
-    <name>dfs.datanode.data.dir</name>
-    <value>file:/usr/local/hadoop/hdfs/data</value>
-</property>
+    <property>
+        <name>dfs.replication</name>
+        <value>1</value>
+    </property>
+    <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>file:/usr/local/hadoop/hdfs/name</value>
+    </property>
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>file:/usr/local/hadoop/hdfs/data</value>
+    </property>
 ```
 ###六、格式化hdfs
 进入hadoop文件夹
