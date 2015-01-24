@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[逗比的今天]]></title>
+  
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://blog.doubi.today/"/>
+  <updated>2015-01-24T18:30:57.223Z</updated>
+  <id>http://blog.doubi.today/</id>
+  
+  <author>
+    <name><![CDATA[WuZhuang]]></name>
+    
+  </author>
+  
+  <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[IDEA使用maven创建hadoop项目]]></title>
+    <link href="http://blog.doubi.today/2015/01/25/idea-maven-hadoop/"/>
+    <id>http://blog.doubi.today/2015/01/25/idea-maven-hadoop/</id>
+    <published>2015-01-24T18:14:00.000Z</published>
+    <updated>2015-01-24T18:30:33.000Z</updated>
+    <content type="html"><![CDATA[<p>有点绕，大概就这么个意思</p>
+<h3 id="添加依赖">添加依赖</h3>
+<p>先装好maven，新建一个maven项目，从pom.xml中添加依赖<br>源：<a href="http://mvnrepository.com/tags/hadoop" target="_blank" rel="external">mvnrepository</a></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="title">dependencies</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">dependency</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.apache.hadoop<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>hadoop-mapreduce-client-core<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="title">version</span>&gt;</span>2.6.0<span class="tag">&lt;/<span class="title">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">dependency</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.apache.hadoop<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>hadoop-common<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="title">version</span>&gt;</span>2.6.0<span class="tag">&lt;/<span class="title">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">dependency</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.apache.hadoop<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>hadoop-mapreduce-client-common<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="title">version</span>&gt;</span>2.6.0<span class="tag">&lt;/<span class="title">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">dependency</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.apache.hadoop<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>hadoop-mapreduce-client-jobclient<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="title">version</span>&gt;</span>2.6.0<span class="tag">&lt;/<span class="title">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">dependencies</span>&gt;</span></div></pre></td></tr></table></figure>
+
+<h3 id="新建类">新建类</h3>
+<p>这个不用多说了</p>
+<h3 id="编译Jar包">编译Jar包</h3>
+<p>File-Project Structure或Ctrl+Shift+Alt+S（吐槽一下这什么鸟快捷键欺负HHKB吗）<br>进入Project Structure，在Artifacts里，添加Jar-Empty<br>在Output Layout里，添加Module Ouput，选择指定模块就行了<br>如果模块只包含一个main函数，则自动选择，否则需要手工选择<br>图省事儿的话还可以选上”Build On make “(make 项目的时候会自动输出Jar)<br>这样直接Build Project就可以看到Jar包了</p>
+<h3 id="注意">注意</h3>
+<h4 id="运行参数问题">运行参数问题</h4>
+<p>默认的hadoop运行参数一般都这样<br><code>hadoop jar [jar包] [input路径] [output路径]</code><br>但是由于我们指定了主类，所以运行参数应变为这样<br><code>hadoop jar [input路径] [output路径]</code></p>
+<h4 id="JDK版本问题">JDK版本问题</h4>
+<p>有些时候本地IDE的JDK版本大于Hadoop的运行版本<br>在IDEA中，调整一下Project bytecode version即可</p>
+<h3 id="参考文章">参考文章</h3>
+<p>1.<a href="http://www.cnblogs.com/michaellfx/p/4001148.html" target="_blank" rel="external">Hadoop on Mac with IntelliJ IDEA - 4 制作jar包</a><br>2.<a href="http://www.cnblogs.com/xuesong/p/3644597.html" target="_blank" rel="external">IntelliJ IDEA 将 Maven 构建的 Java 项目打包</a><br>3.<a href="http://www.hankcs.com/program/java/methods-intellij-idea-source-jar-package.html" target="_blank" rel="external">IntelliJ IDEA 打包Source Jar的方法</a><br>4.<a href="http://blog.fens.me/hadoop-maven-eclipse/" target="_blank" rel="external">用Maven构建Hadoop项目</a><br>5.<a href="http://www.tuicool.com/articles/7Jr632" target="_blank" rel="external">编写简单的Mapreduce程序并部署在Hadoop2.2.0上运行</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>有点绕，大概就这么个意思</p>
+<h3 id="添加依赖">添加依赖</h3>
+<p>先装好maven，新建一个maven项目，从pom.xml中添加依赖<br>源：<a href="http://mvnrepository.com/tags/hadoop" target]]>
+    </summary>
+    
+      <category term="hadoop" scheme="http://blog.doubi.today/categories/hadoop/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Ubuntu14.04下安装Hadoop2.6.0 （单机分布式）]]></title>
+    <link href="http://blog.doubi.today/2015/01/22/ubuntu-install-hadoop/"/>
+    <id>http://blog.doubi.today/2015/01/22/ubuntu-install-hadoop/</id>
+    <published>2015-01-22T14:19:00.000Z</published>
+    <updated>2015-01-24T18:07:23.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="一、在Ubuntu下创建hadoop组和hadoop用户">一、在Ubuntu下创建hadoop组和hadoop用户</h3>
+<h4 id="1、创建hadoop用户组">1、创建hadoop用户组</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> addgroup hadoop</div></pre></td></tr></table></figure>
+
+<h4 id="2、创建hadoop用户">2、创建hadoop用户</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> adduser -ingroup hadoop hadoop</div></pre></td></tr></table></figure>
+
+<p>输入密码后一路回车就行了</p>
+<h4 id="3、为hadoop用户添加权限">3、为hadoop用户添加权限</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> vim /etc/sudoers</div></pre></td></tr></table></figure>
+
+<p>加入</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hadoop  <span class="keyword">ALL</span>=(<span class="keyword">ALL</span>:<span class="keyword">ALL</span>) <span class="keyword">ALL</span></div></pre></td></tr></table></figure>
+
+<h3 id="二、用新增加的hadoop用户登录Ubuntu系统">二、用新增加的hadoop用户登录Ubuntu系统</h3>
+<p>反正是用hadoop账号做后续的事情就是的了</p>
+<h3 id="三、安装ssh">三、安装ssh</h3>
+<p>如果没装oepnssh的话，先装上</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> apt-get install openssh-server</div></pre></td></tr></table></figure>
+
+<p>然后</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh localhost</div></pre></td></tr></table></figure>
+
+<p>完事，也可以从别的机器登陆进来<br>然后设置公钥并保存</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa -P <span class="string">""</span></div><div class="line">cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</div></pre></td></tr></table></figure>
+
+<p>这一步主要是为了之后开启hadoop的时候不用再输入密码了</p>
+<h3 id="四、安装JDK">四、安装JDK</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> apt-get install openjdk-<span class="number">7</span>-jdk</div></pre></td></tr></table></figure>
+
+<p>输入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java -version</div></pre></td></tr></table></figure>
+
+<p>查看是否安装成功，成功后应该是如下提示</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">java <span class="keyword">version</span> <span class="string">"1.7.0_65"</span></div><div class="line">OpenJDK Runtime Environment (IcedTea <span class="number">2.5</span>.<span class="number">3</span>) (<span class="number">7</span>u71-<span class="number">2.5</span>.<span class="number">3</span>-<span class="number">0</span>ubuntu0.<span class="number">14.04</span>.<span class="number">1</span>)</div><div class="line">OpenJDK <span class="number">64</span>-Bit Server VM (build <span class="number">24.65</span>-b04, mixed <span class="built_in">mode</span>)</div></pre></td></tr></table></figure>
+
+<h3 id="五、安装hadoop2-6-0">五、安装hadoop2.6.0</h3>
+<h4 id="1、下载安装">1、下载安装</h4>
+<p>从下载官方的包到tmp目录中，解压后拷贝到/usr/local下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /tmp</div><div class="line">wget -c http://mirror.bit.edu.cn/apache/hadoop/common/hadoop-<span class="number">2.6</span>.<span class="number">0</span>/hadoop-<span class="number">2.6</span>.<span class="number">0</span>.tar.gz</div><div class="line"><span class="built_in">sudo</span> tar xzf hadoop-<span class="number">2.6</span>.<span class="number">0</span>.tar.gz</div><div class="line"><span class="built_in">sudo</span> mv hadoop-<span class="number">2.6</span>.<span class="number">0</span> /usr/local/hadoop</div></pre></td></tr></table></figure>
+
+<p>赋予774权限</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> chmod <span class="number">774</span> /usr/local/hadoop</div></pre></td></tr></table></figure>
+
+<h4 id="2、配置">2、配置</h4>
+<h5 id="1)配置/etc/environment">1)配置/etc/environment</h5>
+<p>先查看一下本地jdk安装路径</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">update-alternatives --config java</div></pre></td></tr></table></figure>
+
+<p>我的显示如下 </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">There is only one alternative in link <span class="keyword">group</span> java (providing <span class="regexp">/usr/</span>bin<span class="regexp">/java): /</span>usr<span class="regexp">/lib/</span>jvm<span class="regexp">/java-7-openjdk-amd64/</span>jre<span class="regexp">/bin/</span>java</div><div class="line">Nothing to configure.</div></pre></td></tr></table></figure>
+
+<p>只取前面的部分</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/lib/jvm/java-<span class="number">7</span>-openjdk-amd64</div></pre></td></tr></table></figure>
+
+<p>配置/etc/environment文件，加入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">JAVA_HOME=/usr/lib/jvm/java-<span class="number">7</span>-openjdk-amd64</div></pre></td></tr></table></figure>
+
+<p>生效并验证一下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">source</span> /etc/environment</div><div class="line"><span class="built_in">echo</span> <span class="variable">$JAVA_HOME</span></div></pre></td></tr></table></figure>
+
+<h5 id="2)编辑hadoop-env-sh">2)编辑hadoop-env.sh</h5>
+<p>将/usr/local/hadoop/etc/hadoop/hadoop-env.sh中找到JAVA_HOME变量，修改为</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export <span class="constant">JAVA_HOME</span>=<span class="regexp">/usr/lib</span><span class="regexp">/jvm/java</span>-<span class="number">7</span>-openjdk-amd64</div></pre></td></tr></table></figure>
+
+<h5 id="3)配置core-site-xml">3)配置core-site.xml</h5>
+<p>在文件/usr/local/hadoop/etc/hadoop/core-site.xml的<code>&lt;configuration&gt;&lt;/configuration&gt;</code>之间增加如下内容</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">name</span>&gt;</span>fs.default.name<span class="tag">&lt;/<span class="title">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">value</span>&gt;</span>hdfs://localhost:9000<span class="tag">&lt;/<span class="title">value</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></div></pre></td></tr></table></figure>
+
+<p>有些时候在后面执行hadoop命令的时候，会报<br><code>Unable to load native-hadoop library for your platform</code></p>
+<p>这时候加入以下配置节使用本地库</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">name</span>&gt;</span>hadoop.native.lib<span class="tag">&lt;/<span class="title">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">value</span>&gt;</span>true<span class="tag">&lt;/<span class="title">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">description</span>&gt;</span>Should native hadoop libraries, if present, be used.<span class="tag">&lt;/<span class="title">description</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></div></pre></td></tr></table></figure>
+
+<h5 id="4)配置yarn-site-xml">4)配置yarn-site.xml</h5>
+<p>在文件/usr/local/hadoop/etc/hadoop/yarn-site.xml的<code>&lt;configuration&gt;&lt;/configuration&gt;</code>之间增加如下内容</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="tag">&lt;/<span class="title">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">value</span>&gt;</span>mapreduce_shuffle<span class="tag">&lt;/<span class="title">value</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">name</span>&gt;</span>yarn.nodemanager.aux-services.mapreduce.shuffle.class<span class="tag">&lt;/<span class="title">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">value</span>&gt;</span>org.apache.hadoop.mapred.ShuffleHandler<span class="tag">&lt;/<span class="title">value</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></div></pre></td></tr></table></figure>
+
+<h5 id="5)创建和配置mapred-site-xml">5)创建和配置mapred-site.xml</h5>
+<p>将/usr/local/hadoop/etc/hadoop/mapred.xml.template重名为mapred.xml<br>在该文件的<code>&lt;configuration&gt;&lt;/configuration&gt;</code>之间增加如下内容</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="title">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">value</span>&gt;</span>yarn<span class="tag">&lt;/<span class="title">value</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></div></pre></td></tr></table></figure>
+
+<h5 id="6)配置hdfs-site-xml">6)配置hdfs-site.xml</h5>
+<p>在文件/usr/local/hadoop/etc/hadoop/配置hdfs-site.xml的<code>&lt;configuration&gt;&lt;/configuration&gt;</code>之间增加如下内容</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">name</span>&gt;</span>dfs.replication<span class="tag">&lt;/<span class="title">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">value</span>&gt;</span>1<span class="tag">&lt;/<span class="title">value</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">name</span>&gt;</span>dfs.namenode.name.dir<span class="tag">&lt;/<span class="title">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">value</span>&gt;</span>file:/usr/local/hadoop/hdfs/name<span class="tag">&lt;/<span class="title">value</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">name</span>&gt;</span>dfs.datanode.data.dir<span class="tag">&lt;/<span class="title">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">value</span>&gt;</span>file:/usr/local/hadoop/hdfs/data<span class="tag">&lt;/<span class="title">value</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></div></pre></td></tr></table></figure>
+
+<h3 id="六、格式化hdfs">六、格式化hdfs</h3>
+<p>进入hadoop文件夹</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /usr/local/hadoop</div></pre></td></tr></table></figure>
+
+<p>格式化hdfs</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bin/hdfs namenode -format</div></pre></td></tr></table></figure>
+
+<h3 id="七、启动hadoop">七、启动hadoop</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sbin/start-dfs.sh</div></pre></td></tr></table></figure>
+
+<p>如果提示yes/no，输入yes即可<br>然后执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sbin/start-yarn.sh</div></pre></td></tr></table></figure>
+
+<p>观察执行效果，输入jps命令，可以看到hadoop运行情况</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">1913 SecondaryNameNode</div><div class="line">2162 NodeManager</div><div class="line">3145 Jps</div><div class="line">1750 DataNode</div><div class="line">2058 ResourceManager</div><div class="line">1496 NameNode</div></pre></td></tr></table></figure>
+
+<p>浏览器打开<a href="http://localhost:50070/，会看到hdfs管理页面" target="_blank" rel="external">http://localhost:50070/，会看到hdfs管理页面</a></p>
+<p>浏览器打开<a href="http://localhost:8088，会看到hadoop进程管理页面" target="_blank" rel="external">http://localhost:8088，会看到hadoop进程管理页面</a></p>
+<h3 id="八、WordCount验证">八、WordCount验证</h3>
+<h4 id="1、dfs上创建input目录">1、dfs上创建input目录</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bin/hadoop fs -mkdir -p input</div></pre></td></tr></table></figure>
+
+<p>把hadoop目录下的README.txt拷贝到dfs新建的input里</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bin/hadoop fs -copyFromLocal README.txt input</div></pre></td></tr></table></figure>
+
+<p>运行WordCount</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bin/hadoop jar share/hadoop/mapreduce/sources/hadoop-mapreduce-examples-<span class="number">2.6</span>.<span class="number">0</span>-sources.jar org.apache.hadoop.examples.WordCount input output</div></pre></td></tr></table></figure>
+
+<p>运行效果</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="number">15</span>/<span class="number">01</span>/<span class="number">22</span> <span class="number">04</span>:<span class="number">46</span>:<span class="number">06</span> INFO <span class="filename">client.RMProxy</span>: Connecting to ResourceManager at /<span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">8032</span></div><div class="line"><span class="number">15</span>/<span class="number">01</span>/<span class="number">22</span> <span class="number">04</span>:<span class="number">46</span>:<span class="number">07</span> INFO <span class="filename">input.FileInputFormat</span>: Total input paths to process : <span class="number">1</span></div><div class="line"><span class="number">15</span>/<span class="number">01</span>/<span class="number">22</span> <span class="number">04</span>:<span class="number">46</span>:<span class="number">07</span> INFO <span class="filename">mapreduce.JobSubmitter</span>: number of splits:<span class="number">1</span></div><div class="line"><span class="number">15</span>/<span class="number">01</span>/<span class="number">22</span> <span class="number">04</span>:<span class="number">46</span>:<span class="number">07</span> INFO <span class="filename">mapreduce.JobSubmitter</span>: Submitting tokens for job: job_1421930484281_0002</div><div class="line"><span class="number">15</span>/<span class="number">01</span>/<span class="number">22</span> <span class="number">04</span>:<span class="number">46</span>:<span class="number">08</span> INFO <span class="filename">impl.YarnClientImpl</span>: Submitted application application_1421930484281_0002</div><div class="line"><span class="number">15</span>/<span class="number">01</span>/<span class="number">22</span> <span class="number">04</span>:<span class="number">46</span>:<span class="number">08</span> INFO <span class="filename">mapreduce.Job</span>: The url to track the job: http://ubuntu:<span class="number">8088</span>/proxy/application_1421930484281_0002/</div><div class="line"><span class="number">15</span>/<span class="number">01</span>/<span class="number">22</span> <span class="number">04</span>:<span class="number">46</span>:<span class="number">08</span> INFO <span class="filename">mapreduce.Job</span>: Running job: job_1421930484281_0002</div><div class="line"><span class="number">15</span>/<span class="number">01</span>/<span class="number">22</span> <span class="number">04</span>:<span class="number">46</span>:<span class="number">15</span> INFO <span class="filename">mapreduce.Job</span>: Job job_1421930484281_0002 running in uber mode : false</div><div class="line"><span class="number">15</span>/<span class="number">01</span>/<span class="number">22</span> <span class="number">04</span>:<span class="number">46</span>:<span class="number">15</span> INFO <span class="filename">mapreduce.Job</span>:  map <span class="number">0</span>% reduce <span class="number">0</span>%</div><div class="line"><span class="number">15</span>/<span class="number">01</span>/<span class="number">22</span> <span class="number">04</span>:<span class="number">46</span>:<span class="number">20</span> INFO <span class="filename">mapreduce.Job</span>:  map <span class="number">100</span>% reduce <span class="number">0</span>%</div><div class="line"><span class="number">15</span>/<span class="number">01</span>/<span class="number">22</span> <span class="number">04</span>:<span class="number">46</span>:<span class="number">27</span> INFO <span class="filename">mapreduce.Job</span>:  map <span class="number">100</span>% reduce <span class="number">100</span>%</div><div class="line"><span class="number">15</span>/<span class="number">01</span>/<span class="number">22</span> <span class="number">04</span>:<span class="number">46</span>:<span class="number">27</span> INFO <span class="filename">mapreduce.Job</span>: Job job_1421930484281_0002 completed successfully</div><div class="line"><span class="number">15</span>/<span class="number">01</span>/<span class="number">22</span> <span class="number">04</span>:<span class="number">46</span>:<span class="number">27</span> INFO <span class="filename">mapreduce.Job</span>: Counters: <span class="number">49</span></div><div class="line">....</div></pre></td></tr></table></figure>
+
+<p>运行完毕后，查看单词统计结果</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bin/hadoop fs -cat output/*</div></pre></td></tr></table></figure>
+
+<p>结果如下</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">(BIS),    <span class="number">1</span></div><div class="line">(ECCN)	<span class="number">1</span></div><div class="line">(TSU)	<span class="number">1</span></div><div class="line">(see	<span class="number">1</span></div><div class="line"><span class="number">5</span>D002<span class="built_in">.</span>C<span class="number">.1</span>,	<span class="number">1</span></div><div class="line"><span class="number">740.13</span>)	<span class="number">1</span></div><div class="line"><span class="subst">&lt;</span>http:<span class="comment">//www.wassenaar.org/&gt;	1</span></div><div class="line"><span class="attribute">...</span><span class="built_in">.</span></div></pre></td></tr></table></figure>
+
+<p>至此，hadoop本机的搭建过程到此完毕</p>
+<h3 id="⑨、参考文章">⑨、参考文章</h3>
+<p>1.<a href="http://www.cnblogs.com/kinglau/p/3794433.html" target="_blank" rel="external">一、Ubuntu14.04下安装Hadoop2.4.0 （单机模式）</a></p>
+<p>2.<a href="http://www.cnblogs.com/kinglau/p/3796164.html" target="_blank" rel="external">二、Ubuntu14.04下安装Hadoop2.4.0 （伪分布模式）</a></p>
+<p>3.<a href="http://www.360doc.com/content/14/0724/15/597197_396743445.shtml" target="_blank" rel="external">Unable to load native-hadoop library for your platform Hadoop本地库与系统版本不一致引起的错误解决方法</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="一、在Ubuntu下创建hadoop组和hadoop用户">一、在Ubuntu下创建hadoop组和hadoop用户</h3>
+<h4 id="1、创建hadoop用户组">1、创建hadoop用户组</h4>
+<figure class="highlight b]]>
+    </summary>
+    
+      <category term="hadoop" scheme="http://blog.doubi.today/categories/hadoop/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[20150119]]></title>
+    <link href="http://blog.doubi.today/2015/01/19/20150119/"/>
+    <id>http://blog.doubi.today/2015/01/19/20150119/</id>
+    <published>2015-01-19T13:03:00.000Z</published>
+    <updated>2015-01-24T18:07:23.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="Cat-Net">Cat.Net</h3>
+<p>想加上Trace的，结果可耻的失败了<br>顺手把代码重构了一下</p>
+<h3 id="SOA">SOA</h3>
+<p>也是把代码调整了一两行</p>
+<h3 id="Redis-Sharding">Redis.Sharding</h3>
+<p>性能没啥问题，貌似写的时候有丢key，排查了一下问题应该是key有重复的情况，这个要明天再验证了，因为本机做了一下测试貌似是没什么问题的</p>
+<h3 id="培训">培训</h3>
+<p>PPT改了一下，也不能总讲一些重复的案例，毫无新鲜感可言</p>
+<h3 id="Docker">Docker</h3>
+<p>昨天的分享我觉得蛮坑，但是也有点东西<br>起码让人明白了，这东西在生产环境中可以做什么<br>公司现在是一流企业的规模，二流企业的技术实力<br>还有很长的路要走啊</p>
+<h3 id="其它">其它</h3>
+<p>今天主要是处理各种问题，比如Cat没记录什么的，景区的问题也是蛮诡异的<br>但是自助游你把config改成线下的了这事儿就很恶劣了啊</p>
+<p>妹子扔给我一本<a href="http://item.jd.com/11447847.html" target="_blank" rel="external">Spark快速数据处理</a>，感觉就像是一本附录囧</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="Cat-Net">Cat.Net</h3>
+<p>想加上Trace的，结果可耻的失败了<br>顺手把代码重构了一下</p>
+<h3 id="SOA">SOA</h3>
+<p>也是把代码调整了一两行</p>
+<h3 id="Redis-Sharding">Redis]]>
+    </summary>
+    
+      <category term="work" scheme="http://blog.doubi.today/categories/work/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[20150116]]></title>
+    <link href="http://blog.doubi.today/2015/01/16/20150116/"/>
+    <id>http://blog.doubi.today/2015/01/16/20150116/</id>
+    <published>2015-01-16T09:27:00.000Z</published>
+    <updated>2015-01-24T18:07:23.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="培训">培训</h3>
+<p>上午给无线做了一下培训，人家给送了个小米手环，好新鲜，第一次近距离接触这玩意，本来我想整<a href="http://www.microsoft.com/Microsoft-Band/en-us" target="_blank" rel="external">Microsoft Band</a>的，巧贵，还是暂时先整个玩玩好了</p>
+<p>拖堂5分钟，但是1小时的内容压缩到半小时想想也是可以了</p>
+<h3 id="Cat">Cat</h3>
+<p>回来后把Cat的Metric问题解决了<br>本来想提个issue的，结果一想算了还是pull一下吧就一行代码的事儿<br>详见<a href="https://github.com/dianping/cat/issues/718" target="_blank" rel="external">#issues718</a> <a href="https://github.com/dianping/cat/pull/719" target="_blank" rel="external">#pull719</a></p>
+<p>完全没想到服务器端的问题，而且其实这个函数估计没几个人会去用，毕竟看上去会有歧义</p>
+<p>再就是线程异常的问题还有零星的出，问题不好说<br>TransactionAlreadyCompleted异常也还在出<br>发现应该CompleteTrancation的位置还是有问题的<br>居然以为catch里throw后是不会进finally的，低级错误低级错误</p>
+<h3 id="防注入">防注入</h3>
+<p>下午把防注入的组件做了一下测试<br>发现用Parallel做多线程的话，线程开销其实还是蛮大的<br>WCF命名管道的损失大概在1.1ms左右</p>
+<h3 id="Redis-Sharding">Redis.Sharding</h3>
+<p>压测腾讯云，貌似逗比的做了一下内网转发，至于吗<br>然后貌似没有造成太大的影响</p>
+<h3 id="周末">周末</h3>
+<p>周末要去看看Docker，在想这东西如果把Hadoop也放进去，应该会方便很多<br>下周需要让妹子申请加内存，再申请一台开发机，否则真的没法玩了</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="培训">培训</h3>
+<p>上午给无线做了一下培训，人家给送了个小米手环，好新鲜，第一次近距离接触这玩意，本来我想整<a href="http://www.microsoft.com/Microsoft-Band/en-us" target="_blank" r]]>
+    </summary>
+    
+      <category term="work" scheme="http://blog.doubi.today/categories/work/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[20150115]]></title>
+    <link href="http://blog.doubi.today/2015/01/15/20150115/"/>
+    <id>http://blog.doubi.today/2015/01/15/20150115/</id>
+    <published>2015-01-15T12:06:00.000Z</published>
+    <updated>2015-01-24T18:07:23.000Z</updated>
+    <content type="html"><![CDATA[<p>今天整了一下HttpListener，没啥好说的</p>
+<p>Cat.Net的Metric居然跑起来了，需要后台绑定Group，虽然还在遇到一些稀奇古怪的问题，但我相信这一定和姿势有问题是息息相关的。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>今天整了一下HttpListener，没啥好说的</p>
+<p>Cat.Net的Metric居然跑起来了，需要后台绑定Group，虽然还在遇到一些稀奇古怪的问题，但我相信这一定和姿势有问题是息息相关的。</p>
+]]>
+    </summary>
+    
+      <category term="work" scheme="http://blog.doubi.today/categories/work/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[20150113]]></title>
+    <link href="http://blog.doubi.today/2015/01/13/20150113/"/>
+    <id>http://blog.doubi.today/2015/01/13/20150113/</id>
+    <published>2015-01-13T09:59:00.000Z</published>
+    <updated>2015-01-24T18:07:23.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="列一下今天的事情">列一下今天的事情</h3>
+<blockquote>
+<p>SOA<br>貌似正常，但是web异常时候会导致TransactionAlreadyCompleted的问题，之前测试没有模拟到这个情况，囧，改之</p>
+<p>Cat.Net<br>特苦逼的翻译了好久Java的客户端，结果程序跑出来的结果和预想中的完全不一样啊，找Java组看看能不能跑出来一个demo让我好知道问题出在哪里。再就是线程中止异常那货，应该也是找到最终原因了，但是CodeReview被打回来了，囧，明天继续搞。</p>
+<p>Redis.Sharding<br>考虑到服务器不变的情况，还是加入BKDRHash来做Key的哈希，用了个重载，原先的一致性哈希还是留着了，不要来回折腾了</p>
+<p>统一配置<br>说Service貌似有点问题，明天一起看一下，Client的TCP通信部分的代码我已经许久未动，应该不会有问题</p>
+</blockquote>
+<h3 id="吐槽">吐槽</h3>
+<p>Redis.Sharding我是没啥底，但是考虑到代码已经做的很精简了理论上不该有什么问题，就看业务压测会不会出什么幺蛾子了。</p>
+<p>培训的反馈中，有个人吐槽了不少，恼了，扒库人肉之，邮轮项目的。</p>
+<p>话说，有建议是好的，但是没有建议只有意见，这个事情就变味了。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="列一下今天的事情">列一下今天的事情</h3>
+<blockquote>
+<p>SOA<br>貌似正常，但是web异常时候会导致TransactionAlreadyCompleted的问题，之前测试没有模拟到这个情况，囧，改之</p>
+<p>Cat.Net<br>]]>
+    </summary>
+    
+      <category term="work" scheme="http://blog.doubi.today/categories/work/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[New Page New Blog]]></title>
+    <link href="http://blog.doubi.today/2015/01/13/new-page-new-blog/"/>
+    <id>http://blog.doubi.today/2015/01/13/new-page-new-blog/</id>
+    <published>2015-01-12T16:12:00.000Z</published>
+    <updated>2015-01-24T18:07:23.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="New">New</h3>
+<p>今天又折腾了一下，调整的差不多了也是</p>
+<p>然后，每天做的事情，或多或少的记录一下</p>
+<p>这个有些东西，是需要去总结的，比如现在就可以学一下Markdown的语法</p>
+<h3 id="列一下最近的事情">列一下最近的事情</h3>
+<blockquote>
+<p>1.统一配置<br>泛型加上了，但是和老版内部实现细节可能还有区别，老版内部有一个objectDict，在考虑要不要也实现一下</p>
+<p>2.防注入组件<br>服务化这个已经搞定，本地了一下是OK的</p>
+<p>3.Cat.Net<br>这个改的差不多了，最近想把metric相关的东西折腾出来</p>
+<p>4.SOA<br>这个没什么东西，就是改了一下埋点，由于tran和request不在一个地方，所以想让SOACall记录失败请求的话，目前来说比较困难</p>
+<p>5.Redis分片<br>这个早就做出来的东西，等小白鼠测试了，但是我一直觉得调用方式有点略奇葩，毕竟是做了个外挂而已</p>
+</blockquote>
+<h3 id="后话">后话</h3>
+<p>事儿挺多，需要集中精力去做</p>
+<p>周末去上海参加分享活动，需要提前做一下功课</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="New">New</h3>
+<p>今天又折腾了一下，调整的差不多了也是</p>
+<p>然后，每天做的事情，或多或少的记录一下</p>
+<p>这个有些东西，是需要去总结的，比如现在就可以学一下Markdown的语法</p>
+<h3 id="列一下最近的事情">列一下]]>
+    </summary>
+    
+      <category term="work" scheme="http://blog.doubi.today/categories/work/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[终于跑起来了]]></title>
+    <link href="http://blog.doubi.today/2015/01/12/finishhexo/"/>
+    <id>http://blog.doubi.today/2015/01/12/finishhexo/</id>
+    <published>2015-01-11T20:27:00.000Z</published>
+    <updated>2015-01-24T18:07:23.000Z</updated>
+    <content type="html"><![CDATA[<p>终于跑起来了，折腾了好一会儿的cname，坑啊</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>终于跑起来了，折腾了好一会儿的cname，坑啊</p>
+]]>
+    </summary>
+    
+      <category term="none" scheme="http://blog.doubi.today/categories/none/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[关于我]]></title>
+    <link href="http://blog.doubi.today/2015/01/12/aboutme/"/>
+    <id>http://blog.doubi.today/2015/01/12/aboutme/</id>
+    <published>2015-01-11T18:05:00.000Z</published>
+    <updated>2015-01-24T18:07:23.000Z</updated>
+    <content type="html"><![CDATA[<h4 id="先留空，以后再填">先留空，以后再填</h4>
+<p>嘎嘎</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h4 id="先留空，以后再填">先留空，以后再填</h4>
+<p>嘎嘎</p>
+]]>
+    </summary>
+    
+  </entry>
+  
+</feed>
