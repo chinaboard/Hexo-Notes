@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.doubi.today/"/>
-  <updated>2015-01-24T18:30:57.223Z</updated>
+  <updated>2015-01-25T15:47:12.423Z</updated>
   <id>http://blog.doubi.today/</id>
   
   <author>
@@ -13,6 +13,26 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[自动生成正则表达式]]></title>
+    <link href="http://blog.doubi.today/2015/01/25/autogeneration-regex/"/>
+    <id>http://blog.doubi.today/2015/01/25/autogeneration-regex/</id>
+    <published>2015-01-25T15:40:00.000Z</published>
+    <updated>2015-01-25T15:44:52.000Z</updated>
+    <content type="html"><![CDATA[<p>闲逛中发现一个能够根据输入字符串自动生成正则表达式的网站<br>实在是吾等懒人的福音<br><a href="http://www.txt2re.com/" target="_blank" rel="external">txt2re</a><br>按照步骤说明，先输入原文<br>然后选择要匹配的区间<br>就会自动生成所需的目标代码<br>目前支持</p>
+<blockquote>
+<p>Perl<br>PHP<br>Python<br>Java<br>Javascript<br>ColdFusion<br>C<br>C++<br>Ruby<br>VB<br>VBScript<br>J#<br>C#<br>C++.net<br>VB.net</p>
+</blockquote>
+<p>看着也是醉了。。。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>闲逛中发现一个能够根据输入字符串自动生成正则表达式的网站<br>实在是吾等懒人的福音<br><a href="http://www.txt2re.com/" target="_blank" rel="external">txt2re</a><br>按照步骤说明，先输入原文<]]>
+    </summary>
+    
+      <category term="Share" scheme="http://blog.doubi.today/categories/Share/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[IDEA使用maven创建hadoop项目]]></title>
