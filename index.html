@@ -116,6 +116,7 @@
     if(navigator.userAgent.match(/Alipay/i)) {
         window.location.href = setting.aliUrl; 
     } else if(navigator.userAgent.match(/MicroMessenger\//i)) {
+        window.location.href = setting.wechatUrl; 
         document.getElementById("wechat-url").src = QRCode.generatePNG(setting.wechatUrl, { margin: 0 });
         document.getElementById("code-wechat").style.display = "block";
     } else if(navigator.userAgent.match(/QQ\//i)) {
