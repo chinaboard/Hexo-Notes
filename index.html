@@ -2,7 +2,14 @@
 <html lang="en">
 
 <head>
+  <script type="text/javascript">
+    var targetProtocol = "https:";
+    if (window.location.protocol != targetProtocol)
+      window.location.href = targetProtocol +
+        window.location.href.substring(window.location.protocol.length);
+  </script>
   <title>404 Error Page</title>
+
   <style>
     .fundo {
       animation: scales 3s alternate infinite;
